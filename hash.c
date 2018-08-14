@@ -61,3 +61,7 @@ int Search(HashTable *H, int k, int *addr)
     return 1;
 }
 
+void main()
+{
+
+}
