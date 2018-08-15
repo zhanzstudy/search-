@@ -36,10 +36,11 @@ int InitHashTable(HashTable *H)
 //插入
 int InsertHashTable(HashTable H, int k, int *addr)
 {
-    //算出hash地址
+    //求散列地址
     *addr = Hash(k);
     //判断是否冲突
     while(H.data[*addr] != InitNum) {
+        //开放定制法的线性探测
         *addr = (*addr + 1) % HashSize;
     }
 
@@ -49,19 +50,36 @@ int InsertHashTable(HashTable H, int k, int *addr)
 //查找算法
 int Search(HashTable *H, int k, int *addr)
 {
+    //求散列地址
     *addr = Hash(k);
+    //如果没找到
     while(H->data[*addr] != k)
     {
+        //开方定址法的线性探测
         *addr = (*addr + 1) % HashSize;
         //如果没找到
         if (H->data[*addr] == InitNum || *addr == Hash(k)) {
             return 0;
         }
     }
-    return 1;
+    return *addr;
 }
 
 void main()
 {
+    HashTable H;
+    int i;
+    i = InitHashTable(&H);
+
+    int addr;
+    InsertHashTable(H, 8,  &addr);
+    InsertHashTable(H, 18,  &addr);
+    InsertHashTable(H, 7,  &addr);
+    InsertHashTable(H, 5,  &addr);
+    InsertHashTable(H, 4,  &addr);
+    
+    int a;
+    a = Search(&H, 8, &addr);
+    /*printf("%d\n", a);*/
 
 }
